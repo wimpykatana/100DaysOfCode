@@ -1,0 +1,50 @@
+.App {
+  text-align: center;
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.icon-holder {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon-game,
+.icon {
+  width: 30vw;
+  height: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 5em;
+  flex-direction: column;
+}
+
+.icon-game {
+  height: 400px;
+}
+
+.noRayCast {
+  pointer-events: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+.game-holder {
+  display: flex;
+  flex-direction: row;
+}
+
+.game-result {
+  font-size: 1.2em;
+}
