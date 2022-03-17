@@ -1,35 +1,29 @@
 import React, { useEffect, useState } from 'react';
 
-const Card = ({
-  card,
-  turn,
-  setTurn,
-  firstCard,
-  secondCard,
-  setFirstCard,
-  setSecondCard,
-}) => {
-  const cardClickHandle = () => {
-    console.log('click');
-
-    if (!firstCard) {
-      setFirstCard(card);
-      setTurn(turn + 1);
-    } else if (!secondCard) {
-      setSecondCard(card);
-      setTurn(turn + 1);
+const Card = ({ card, cardClickHandle, indexCard }) => {
+  const childCardClick = () => {
+    if (!card.isClick) {
+      cardClickHandle(indexCard);
     }
   };
 
-  const closeCard =
-    'https://i.postimg.cc/GtGhsGQ4/monster-portrait-prize.png';
+  const closeCard = 'https://i.postimg.cc/GtGhsGQ4/monster-portrait-prize.png';
 
   return (
-    <div className='card'>
-      <div id={card.id} onClick={cardClickHandle}>
-        <img src={closeCard} />
-        <img src={card.src} width='100px' height='100px' />
-      </div>
+    <div className='card' onClick={childCardClick} disabled={card.isClick}>
+      {!card.matched && (
+        <div data-id={card.id} className='noRayCast'>
+          {!card.isClick && <img className='noRayCast' src={closeCard} />}
+          {card.isClick && (
+            <img
+              className='noRayCast'
+              src={card.src}
+              width='100px'
+              height='100px'
+            />
+          )}
+        </div>
+      )}
     </div>
   );
 };

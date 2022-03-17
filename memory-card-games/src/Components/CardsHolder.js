@@ -6,41 +6,49 @@ const rawCard = [
     id: 1,
     src: 'https://i.postimg.cc/5X2r42Qp/monster-portrait-air.png',
     matched: false,
+    isClick: false,
   },
   {
     id: 2,
     src: 'https://i.postimg.cc/gxtTnbvp/monster-portrait-celestial.png',
     matched: false,
+    isClick: false,
   },
   {
     id: 3,
     src: 'https://i.postimg.cc/WDDfZYnk/monster-portrait-cold.png',
     matched: false,
+    isClick: false,
   },
   {
     id: 4,
     src: 'https://i.postimg.cc/v1p2t7qS/monster-portrait-crystal.png',
     matched: false,
+    isClick: false,
   },
   {
     id: 5,
     src: 'https://i.postimg.cc/dkrHH7gQ/monster-portrait-earth.png',
     matched: false,
+    isClick: false,
   },
   {
     id: 6,
     src: 'https://i.postimg.cc/V0w73fcq/monster-portrait-electricity.png',
     matched: false,
+    isClick: false,
   },
   {
     id: 7,
     src: 'https://i.postimg.cc/nMtpHqFk/monster-portrait-fire.png',
     matched: false,
+    isClick: false,
   },
   {
     id: 8,
     src: 'https://i.postimg.cc/Wq79VB2Q/monster-portrait-gold.png',
     matched: false,
+    isClick: false,
   },
 ];
 
@@ -49,6 +57,7 @@ const CardsHolder = () => {
   const [turn, setTurn] = useState(0);
   const [firstCard, setFirstCard] = useState(null);
   const [secondCard, setSecondCard] = useState(null);
+  const [isCardMatch, setIsCardMatch] = useState('');
 
   const shuffleCard = () => {
     const shuffledCard = [...rawCard, ...rawCard].sort(
@@ -59,20 +68,69 @@ const CardsHolder = () => {
 
   const checkResult = () => {
     if (firstCard && secondCard) {
-      console.log('check result');
       if (firstCard.id === secondCard.id) {
-        console.log('is match');
+        setIsCardMatch('It`s a match !!!');
+
+        setTimeout(() => {
+          setCards((prevCards) => {
+            return prevCards.map((card) => {
+              if (card.id === firstCard.id && card.id === secondCard.id) {
+                return { ...card, matched: true };
+              } else {
+                return card;
+              }
+            });
+          });
+        }, 2500);
+
         resetCard();
       } else {
-        console.log('not match');
+        setIsCardMatch('It`s not a match, Try Again');
         resetCard();
       }
     }
   };
 
   const resetCard = () => {
-    setFirstCard(null);
-    setSecondCard(null);
+    setTimeout(() => {
+      setCards((prevCards) => {
+        return prevCards.map((card) => {
+          return { ...card, isClick: false };
+        });
+      });
+      setFirstCard(null);
+      setSecondCard(null);
+      setIsCardMatch('');
+    }, 2500);
+  };
+
+  const cardClickHandle = (val) => {
+    // console.log(typeof val);
+    if (!firstCard) {
+      setCards((prevCards) => {
+        return prevCards.map((card, i) => {
+          if (i === val) {
+            return { ...card, isClick: true };
+          } else {
+            return card;
+          }
+        });
+      });
+      setFirstCard(cards[val]);
+      setTurn(turn + 1);
+    } else if (!secondCard) {
+      setCards((prevCards) => {
+        return prevCards.map((card, i) => {
+          if (i === val) {
+            return { ...card, isClick: true };
+          } else {
+            return card;
+          }
+        });
+      });
+      setSecondCard(cards[val]);
+      setTurn(turn + 1);
+    }
   };
 
   useEffect(() => {
@@ -82,9 +140,6 @@ const CardsHolder = () => {
   useEffect(() => {
     shuffleCard();
   }, []);
-
-  console.log(`first card: ${firstCard ? firstCard.id : null}`);
-  console.log(`second card: ${secondCard ? secondCard.id : null}`);
   return (
     <>
       <div className='card-holder'>
@@ -94,17 +149,24 @@ const CardsHolder = () => {
               <EachCard
                 card={card}
                 key={i}
-                turn={turn}
-                setTurn={setTurn}
-                firstCard={firstCard}
-                setFirstCard={setFirstCard}
-                secondCard={secondCard}
-                setSecondCard={setSecondCard}
+                indexCard={i}
+                cardClickHandle={cardClickHandle}
               />
             );
           })}
       </div>
-      <div style={{ marginTop: '50px' }}>Turn: {turn}</div>
+      <div>{isCardMatch}</div>
+      <div
+        style={{
+          margin: '50px 0',
+          position: 'absolute',
+          bottom: '0',
+          fontSize: '35px',
+          width: '100%',
+        }}
+      >
+        Turn: {turn}
+      </div>
     </>
   );
 };
