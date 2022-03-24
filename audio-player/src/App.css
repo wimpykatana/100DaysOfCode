@@ -1,0 +1,96 @@
+.App {
+  text-align: center;
+  background-color: #ccc;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.audio-player-holder {
+  width: 350px;
+  height: 250px;
+  background-color: white;
+  border-radius: 7px;
+}
+
+.audio-thumb {
+  height: 100%;
+  width: 100%;
+  position: relative;
+}
+
+.audio-thumb img {
+  border-radius: 7px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 0;
+}
+
+.audio-thumb::before {
+  border-radius: 7px;
+  opacity: 0.5;
+  content: '';
+  width: 100%;
+  height: 100%;
+  display: block;
+  background-image: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0),
+    rgba(0, 0, 0, 1)
+  );
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+}
+
+.audio-control {
+  border-radius: 0 0 7px 7px;
+  width: 100%;
+  display: block;
+  height: 33%;
+  position: absolute;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  border-top: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.audio-control .audio-text {
+  padding: 5px 0 0 0;
+  font-size: 0.5em;
+  margin-bottom: 12px;
+}
+
+.audio-seek-holder {
+  width: 100%;
+  height: 5px;
+  background-color: #ccc;
+  margin-top: -5px;
+  position: relative;
+}
+
+.audio-seek-current {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 5px;
+  background-color: rgb(138, 12, 12);
+}
+
+.audio-controler {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+}
+
+.audio-controler .rep,
+.audio-controler .for {
+  font-size: 0.8em;
+  margin: 0 20px;
+}

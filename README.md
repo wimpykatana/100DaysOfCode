@@ -7,3 +7,4 @@
 - Weather app ( react.js ) - Done
 - Calculator ( react.js ) - Done
 - Random background color ( react.js ) - Done
+- Audio Player ( react.js ) - WIP
